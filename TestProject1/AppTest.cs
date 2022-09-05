@@ -8,7 +8,7 @@ namespace TestProject1
         [TestMethod]
         public void CalcTest()
         {
-            // Testing Calc ...
+            // Testing Calc ......
 
             Calc calc = new();
 
