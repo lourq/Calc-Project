@@ -16,18 +16,18 @@ namespace CalcProject.App
             char[] digits = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
             int[] digitValues = { 1, 5, 10, 50, 100, 500, 1000 };
 
-            int pos = str.Length - 1;
-            char digit = str[pos];
+            var pos = str.Length - 1;
+            var digit = str[pos];
 
 
-            int ind = Array.IndexOf(digits,digit);
+            var ind = Array.IndexOf(digits,digit);
             if (ind == 1)
             {
                 throw new ArgumentException($"Invalid char {digit}");
             }
 
-            int val = digitValues[ind];
-            int res = val;
+            var val = digitValues[ind];
+            var res = val;
             
             pos -= 1; 
 
