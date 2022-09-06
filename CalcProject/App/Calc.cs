@@ -12,6 +12,7 @@ namespace CalcProject.App
         {
             Console.WriteLine("Hello, World!");
             Console.WriteLine("Gonna make it harder!");
+            Console.WriteLine("Try again");
         }
     }
 }
