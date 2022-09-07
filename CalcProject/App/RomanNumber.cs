@@ -10,6 +10,17 @@ namespace CalcProject.App
     // Class for working with R numbers
     public class RomanNumber
     {
+        private static Dictionary<char , int> digits = new ()
+        {
+            {'I',1},                                                                                                                           
+            {'V',5},                                                                                                                           
+            {'X',10},                                                                                                                          
+            {'L',50},                                                                                                                          
+            {'C',100},                                                                                                                         
+            {'D',500},                                                                                                                         
+            {'M',1000}  
+        };
+
         // Parse str to number
         public static int Parse(String str)
         {
@@ -20,25 +31,35 @@ namespace CalcProject.App
             if (str == string.Empty)
                 throw new ArgumentException("Empty string not allowed");
             
-            char[] digits = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
-            int[] digitValues = { 1, 5, 10, 50, 100, 500, 1000 };
+            #region Parse to Int
 
-            var pos = str.Length - 1;
-            var digit = str[pos];
-
-
-            var ind = Array.IndexOf(digits,digit);
-            if (ind == 1)
+            if (str.Length <= 1)
             {
-                throw new ArgumentException($"Invalid char {digit}");
+                return digits[Char.Parse(str)];
+            }
+            
+            var sum = 0;
+
+            for (int i = 0; i < str.Length - 1; i++)
+            {
+                var number = digits[str[i]];
+                var nextNumber = digits[str[i + 1]];
+
+                if (number > nextNumber || number == nextNumber)
+                {
+                    sum += number;
+                }
+                else if (number < nextNumber)
+                {
+                    sum -= number;
+                }
             }
 
-            var val = digitValues[ind];
-            var res = val;
+            sum += digits[str[str.Length - 1]];
             
-            pos -= 1; 
-
-            return 1;
+            #endregion
+            
+            return sum;
         }
     }
 }
