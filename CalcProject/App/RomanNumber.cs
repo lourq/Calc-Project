@@ -13,6 +13,13 @@ namespace CalcProject.App
         // Parse str to number
         public static int Parse(String str)
         {
+            // validation input data
+            if (str == null)
+                throw new ArgumentNullException();
+        
+            if (str == string.Empty)
+                throw new ArgumentException("Empty string not allowed");
+            
             char[] digits = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
             int[] digitValues = { 1, 5, 10, 50, 100, 500, 1000 };
 
