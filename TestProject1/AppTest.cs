@@ -16,32 +16,57 @@ namespace TestProject1
         }
 
         [TestMethod]
-        public void RomanNumberParse()
+        public void RomanNumberParse1Digit()
         {
-            Assert.AreEqual(RomanNumber.Parse("I"), 1, "I == 1");
-            Assert.AreEqual(RomanNumber.Parse("IV"), 4, "IV == 4");
-            Assert.AreEqual(RomanNumber.Parse("XV"), 15);
-            Assert.AreEqual(RomanNumber.Parse("XXX"), 30);
-            Assert.AreEqual(RomanNumber.Parse("CM"), 900);
-            Assert.AreEqual(RomanNumber.Parse("MCMXCIX"), 1999);
-            Assert.AreEqual(RomanNumber.Parse("CD"), 400);
-            Assert.AreEqual(RomanNumber.Parse("CDI"), 401);
-            Assert.AreEqual(RomanNumber.Parse("LV"), 55);
-            Assert.AreEqual(RomanNumber.Parse("XL"), 40);
+            Assert.AreEqual(1,    RomanNumber.Parse("I") );
+            Assert.AreEqual(5,    RomanNumber.Parse("V") );
+            Assert.AreEqual(10,   RomanNumber.Parse("X") );
+            Assert.AreEqual(50,   RomanNumber.Parse("L") );
+            Assert.AreEqual(100,  RomanNumber.Parse("C") );
+            Assert.AreEqual(500,  RomanNumber.Parse("D") );
+            Assert.AreEqual(1000, RomanNumber.Parse("M") );            
+        }
+
+        [TestMethod]
+        public void RomanNumberParse2Digits()
+        {
+            Assert.AreEqual(4,   RomanNumber.Parse("IV") );
+            Assert.AreEqual(15,  RomanNumber.Parse("XV") );
+            Assert.AreEqual(900, RomanNumber.Parse("CM") );
+            Assert.AreEqual(400, RomanNumber.Parse("CD") );
+            Assert.AreEqual(55,  RomanNumber.Parse("LV") );
+            Assert.AreEqual(40,  RomanNumber.Parse("XL") );
+        }
+
+        [TestMethod]
+        public void RomanNumberParse3MoreDigits()
+        {
+            Assert.AreEqual(30,   RomanNumber.Parse("XXX") );
+            Assert.AreEqual(401,  RomanNumber.Parse("CDI") );
+            Assert.AreEqual(1999, RomanNumber.Parse("MCMXCIX") );
+        }
+
+        [TestMethod]
+        public void RomanNumberParseInvalidDigit()
+        {
+            var ex = Assert.ThrowsException<ArgumentException>(() => { RomanNumber.Parse("ASDASZ");});
+            var exs = new ArgumentException($"Invalid input data: A");
+            
+            Assert.AreEqual(exs.Message,ex.Message);
         }
 
         [TestMethod]
         public void RomanNumberParseN()
         {
-            Assert.AreEqual("Invalid char N",
+            Assert.AreEqual("Invalid input data: N",
                 Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("XN")).Message);
-            Assert.AreEqual("Invalid char N",
+            Assert.AreEqual("Invalid input data: N",
                 Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("XNX")).Message);
-            Assert.AreEqual("Invalid char N",
+            Assert.AreEqual("Invalid input data: N",
                 Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("NX")).Message);
-            Assert.AreEqual("Invalid char N",
+            Assert.AreEqual("Invalid input data: N",
                 Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("NVII")).Message);
-            Assert.AreEqual("Invalid char N",
+            Assert.AreEqual("Invalid input data: N",
                 Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("NN")).Message);
         }
     }

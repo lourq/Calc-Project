@@ -31,6 +31,13 @@ namespace CalcProject.App
             if (str == string.Empty)
                 throw new ArgumentException("Empty string not allowed");
             
+            foreach (var inputSymbol in str)
+            {
+                if (!digits.ContainsKey(inputSymbol))
+                    throw new ArgumentException($"Invalid input data: {inputSymbol}");
+            }
+
+            
             #region Parse to Int
 
             if (str.Length <= 1)
