@@ -69,5 +69,46 @@ namespace TestProject1
             Assert.AreEqual("Invalid input data: N",
                 Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("NN")).Message);
         }
+
+        [TestMethod]
+        public void RomanNumberCtor()
+        {
+            RomanNumber romanNumber = new();
+            Assert.IsNotNull(romanNumber);
+
+            romanNumber = new(10);
+            Assert.IsNotNull(romanNumber);
+            
+            romanNumber = new(0);
+            Assert.IsNotNull(romanNumber);
+        }
+
+        [TestMethod]
+        public void RomanNumberToString()
+        {
+            RomanNumber romanNumber = new(0);
+            Assert.AreEqual("N",romanNumber.ToString());
+            
+            romanNumber = new(90);
+            Assert.AreEqual("XC",romanNumber.ToString());
+            
+            romanNumber = new(20);
+            Assert.AreEqual("XX",romanNumber.ToString());
+            
+            romanNumber = new(1999);
+            Assert.AreEqual("MCMXCIX",romanNumber.ToString());
+            
+        }
+
+        [TestMethod]
+        public void RomanNumberToStringParseCrossTest()
+        {
+            RomanNumber num = new();
+            for (int n = 1; n <= 2022; ++n)
+            {
+                num.Value = n;
+                Assert.AreEqual(n , RomanNumber.Parse(num.ToString()));
+            }
+        }
     }
 }

@@ -10,6 +10,44 @@ namespace CalcProject.App
     // Class for working with R numbers
     public class RomanNumber
     {
+        private int _value;
+        public int Value
+        {
+            get { return _value; }
+            set { _value = value; }
+        }
+        public RomanNumber(int number = 0)
+        {
+            _value = number;
+        }
+        /// <summary>
+        ///  return toString method
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            if (_value == 0)
+            {
+                return "N";
+            }
+
+            int temp = this._value;
+            String res = "";
+            String[] parts = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+            int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+
+            for (int i = 0; i < parts.Length; i++)
+            {
+                while (temp >= values[i])
+                {
+                    temp -= values[i];
+                    res += parts[i];
+                }
+            }
+            
+            return res;
+        }
+
         private static Dictionary<char , int> digits = new ()
         {
             {'I',1},                                                                                                                           
