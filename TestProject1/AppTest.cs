@@ -110,45 +110,7 @@ namespace TestProject1
                 Assert.AreEqual(n, RomanNumber.Parse(num.ToString()));
             }
         }
-
-    //     [TestMethod]
-    //     public void TypeTest()
-    //     {
-    //         // если RomanNumber - ссылочный тип
-    //
-    //         RomanNumber rn1 = new() { Value = 10 };
-    //         var rn2 = rn1;
-    //         Assert.AreSame(rn1, rn2); // rn1, rn2 - ссылки на один объект
-    //
-    //         var rn3 = rn1 with { }; // клонирование
-    //         Assert.AreNotSame(rn3, rn1); // проверка клонирования - объекты разные
-    //         Assert.AreEqual(rn3, rn1); // не одинаковые, но равные
-    //         Assert.IsTrue(rn1 == rn3);
-    //
-    //         var rn4 = rn1 with { Value = 20 };
-    //         // объекты разные, их значения разные
-    //         Assert.AreNotSame(rn4, rn1);
-    //         Assert.AreNotEqual(rn4, rn1);
-    //         Assert.IsFalse(rn1 == rn4);
-    //         Assert.IsFalse(rn1.Equals(rn4));
-    //     }
-    //
-    //     [TestMethod]
-    //     public void ParseNegative()
-    //     {
-    //         Assert.AreEqual(-10, RomanNumber.Parse("-X"));
-    //         Assert.AreEqual(-400, RomanNumber.Parse("-CD"));
-    //         Assert.AreEqual(-1900, RomanNumber.Parse("-MCM"));
-    //
-    //         Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("M-CM"));
-    //         Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("M-"));
-    //         Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("-"));
-    //         Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("-N"));
-    //         Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("--X"));
-    //         Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("-C-X"));
-    //         Assert.ThrowsException<ArgumentException>(() => RomanNumber.Parse("--"));
-    //     }
-    //
+        
     [TestMethod]
     public void ToStringNegative()
     {
@@ -157,82 +119,18 @@ namespace TestProject1
         rn.Value = -90;
         Assert.AreEqual("-XC", rn.ToString());
     }
-    //
-    //     [TestMethod]
-    //     public void AddRomanNumber()
-    //     {
-    //         RomanNumber rn2 = new(2);
-    //         RomanNumber rn5 = new(5);
-    //         RomanNumber rn7 = new(7);
-    //         RomanNumber rn10 = new() { Value = 10 };
-    //         RomanNumber rn_5 = new() { Value = -5 };
-    //         RomanNumber rn_7 = new() { Value = -7 };
-    //
-    //         Assert.AreEqual(9, rn2.Add(rn7).Value);
-    //         Assert.AreEqual(20, rn10.Add(rn10).Value);
-    //         Assert.AreEqual(5, rn10.Add(rn_5).Value);
-    //         Assert.AreEqual(3, rn10.Add(rn_7).Value);
-    //         Assert.AreEqual(10, rn5.Add(rn5).Value);
-    //         Assert.AreEqual(7, rn7.Add(new RomanNumber(0)).Value);
-    //         Assert.AreEqual(5, rn5.Add(new RomanNumber()).Value);
-    //         Assert.AreEqual(25, rn5.Add(new RomanNumber(20)).Value);
-    //         Assert.AreEqual(6, rn5.Add(new RomanNumber(1)).Value);
-    //         Assert.AreEqual(19, rn10.Add(new RomanNumber(9)).Value);
-    //         Assert.AreEqual(-5, rn5.Add(new RomanNumber(-10)).Value);
-    //         Assert.AreEqual(rn7, rn2.Add(rn5));
-    //         Assert.AreEqual(rn_5, rn_7.Add(rn2));
-    //         Assert.AreEqual("XVII", rn7.Add(rn10).ToString());
-    //         Assert.AreEqual("III", rn_7.Add(rn10).ToString());
-    //         Assert.AreEqual("-V", rn_7.Add(rn2).ToString());
-    //         Assert.AreEqual("-XII", rn_7.Add(rn_5).ToString());
-    //
-    //         Assert.ThrowsException<ArgumentNullException>(() => rn2.Add((RomanNumber)null!));
-    //
-    //     }
-    //
-    //     [TestMethod]
-    //     public void AddRomanInteger()
-    //     {
-    //         var rn = new RomanNumber(10);
-    //         Assert.AreEqual(20, rn.Add(10).Value);
-    //         Assert.AreEqual("V", rn.Add(-5).ToString());
-    //         Assert.AreEqual(rn, rn.Add(0));
-    //     }
-    //
-    //     [TestMethod]
-    //     public void AddRomanString()
-    //     {
-    //         var rn = new RomanNumber(10);
-    //         Assert.AreEqual(30, rn.Add("XX").Value);
-    //         Assert.AreEqual("-XL", rn.Add("-L").ToString());
-    //         Assert.AreEqual(rn, rn.Add("N"));
-    //
-    //         Assert.ThrowsException<ArgumentException>(() => rn.Add(""));
-    //         Assert.ThrowsException<ArgumentException>(() => rn.Add("-"));
-    //         Assert.ThrowsException<ArgumentException>(() => rn.Add("10"));
-    //         Assert.ThrowsException<ArgumentNullException>(() => rn.Add((String)null!));
-    //     }
-    //
-    //     [TestMethod]
-    //     public void AddRomanStatic()
-    //     {
-    //         var rn5 = RomanNumber.Add(2, 3);
-    //         var rn8 = RomanNumber.Add(rn5, 3);
-    //         var rn10 = RomanNumber.Add("I", "IX");
-    //         var rn9 = RomanNumber.Add(rn5, "IV");
-    //         var rn13 = RomanNumber.Add(rn5, rn8);
-    //
-    //         Assert.AreEqual(5, rn5.Value);
-    //         Assert.AreEqual(8, rn8.Value);
-    //         Assert.AreEqual(10, rn10.Value);
-    //         Assert.AreEqual(9, rn9.Value);
-    //         Assert.AreEqual(13, rn13.Value);
-    //
-    //         Assert.AreEqual(0, RomanNumber.Add(0, "N").Value);
-    //         Assert.AreEqual(1, RomanNumber.Add(rn5, "-IV").Value);
-    //
-    //         Assert.ThrowsException<ArgumentNullException>(() =>
-    //             RomanNumber.Add((RomanNumber)null!, (RomanNumber)null!));
-    //     }
+    [TestMethod]
+    public void AddStaticTest()
+    {
+        RomanNumber rn5  = RomanNumber.Add(2, 3);
+        RomanNumber rn8  = RomanNumber.Add(rn5, 3);
+        RomanNumber rn10 = RomanNumber.Add("I", "IX");
+        RomanNumber rn9  = RomanNumber.Add(rn5, "IV");
+        RomanNumber rn13 = RomanNumber.Add(rn5, rn8);
+        // Задание: составить утверждения для тестирования RomanNumber.Add
+        // Реализовать RomanNumber.Add и необходимые перегрузки
+        // Расширить тесты с учетом исключительных ситуаций
+        // ! В стиле ХР не делаем лишнего
+    }
     }
 }

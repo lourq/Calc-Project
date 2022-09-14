@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,8 +39,32 @@ namespace CalcProject.App
         #endregion
 
         #region method Add
+        
+        public static RomanNumber Add(int num1, int num2)
+        {
+            return new RomanNumber(num1 + num2);
+        }
 
+        public static RomanNumber Add(RomanNumber num1, int num2)
+        {
+            return new RomanNumber(num1.Value + num2);
+        }
 
+        public static RomanNumber Add(string num1, string num2)
+        {
+            return new RomanNumber(Parse(num1) + Parse(num2));
+        }
+
+        public static RomanNumber Add(RomanNumber num1, string num2)
+        {
+            return new RomanNumber(num1.Value + Parse(num2));
+        }
+
+        public static RomanNumber Add(RomanNumber num1, RomanNumber num2)
+        {
+            return new RomanNumber(num1.Value + num2.Value);
+        }
+        
         #endregion
         
         #region method toString
