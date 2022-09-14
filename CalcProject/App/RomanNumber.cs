@@ -10,45 +10,9 @@ namespace CalcProject.App
     // Class for working with R numbers
     public class RomanNumber
     {
-        private int _value;
-        public int Value
-        {
-            get { return _value; }
-            set { _value = value; }
-        }
-        public RomanNumber(int number = 0)
-        {
-            _value = number;
-        }
-        /// <summary>
-        ///  return toString method
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            if (_value == 0)
-            {
-                return "N";
-            }
-
-            int temp = this._value;
-            String res = "";
-            String[] parts = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
-            int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-
-            for (int i = 0; i < parts.Length; i++)
-            {
-                while (temp >= values[i])
-                {
-                    temp -= values[i];
-                    res += parts[i];
-                }
-            }
-            
-            return res;
-        }
-
-        private static Dictionary<char , int> digits = new ()
+        #region Data
+        
+        private static readonly Dictionary<char , int> digits = new ()
         {
             {'I',1},                                                                                                                           
             {'V',5},                                                                                                                           
@@ -59,10 +23,57 @@ namespace CalcProject.App
             {'M',1000}  
         };
 
-        // Parse str to number
+        public int Value { get; set; }
+
+        #endregion
+
+        #region Сonstructors
+
+        public RomanNumber(int number = 0)
+        {
+            Value = number;
+        }
+
+        #endregion
+
+        #region method Add
+
+
+        #endregion
+        
+        #region method toString
+
+        public override string ToString()
+        {
+            if (Value == 0)
+            {
+                return "N";
+            }
+
+            int n = this.Value < 0 ? -this.Value : this.Value;
+            String res = this.Value < 0 ? "-" : "";
+            String[] parts = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+            int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+
+
+            for (int j = 0; j <= parts.Length - 1; j++)
+            {
+                while (n >= values[j])
+                {
+                    n -= values[j];
+                    res += parts[j];
+
+                }
+            }
+
+            return res;
+        }
+        
+        #endregion
+
+        #region Parse String to int method
         public static int Parse(String str)
         {
-            // validation input data
             if (str == null)
                 throw new ArgumentNullException();
         
@@ -106,5 +117,6 @@ namespace CalcProject.App
             
             return sum;
         }
+        #endregion
     }
 }

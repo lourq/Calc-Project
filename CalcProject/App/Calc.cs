@@ -10,9 +10,6 @@ namespace CalcProject.App
     {
         public void Run()
         {
-            Console.WriteLine("Hello, World!");
-            Console.WriteLine("Gonna make it harder!");
-            Console.WriteLine("Try again");
         }
     }
 }
