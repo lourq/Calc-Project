@@ -40,6 +40,24 @@ namespace CalcProject.App
 
         #region method Add
         
+        public static RomanNumber Add(object obj1, object obj2)
+        {
+            var rns = new RomanNumber[] { null!, null! };
+            var pars = new object[] { obj1, obj2 };
+
+            for (int i = 0; i < 2; i++)
+            {
+                if (pars[i] is null) throw new ArgumentNullException($"obj{i+1}");
+
+                if (pars[i] is int val) rns[i] = new RomanNumber(val);
+                else if (pars[i] is String str) rns[i] = new RomanNumber(Parse(str));
+                else if (pars[i] is RomanNumber rn) rns[i] = rn;
+                else throw new ArgumentException($"obj{i+1}: type unsupported");
+            }            
+
+            return rns[0].Add(rns[1]);
+        }
+        
         public static RomanNumber Add(int num1, int num2)
         {
             return new RomanNumber(num1 + num2);
