@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -10,11 +11,23 @@ namespace CalcProject.App
     public class Resources
     {
         public Resources(){}
-        public  String Culture { get; set; } = "uk-UA";
+        private string? Culture { get; set; } = "uk-UA";
 
+        public void MakeSelect(String? culture = null)
+        {
+            culture ??= Culture;
+            switch (culture)
+            {
+                case "1" : this.Culture = "uk-UA";
+                    break;
+                case "2" : this.Culture = "en-US";
+                    break;
+            }
+        }
+        
         public  String GetEmptyStringMessage(String? culture = null)
         { 
-            if (culture == null) culture = Culture;
+            culture ??= Culture;
             switch (culture)
             {
                 case "uk-UA": return "Порожній рядок неприпустимий";
@@ -33,13 +46,13 @@ namespace CalcProject.App
                 _ => throw new Exception("Unupported culture")
             };
         }
-        public  String GetInvalidTypeMessage(int objNumber, String type, String? culture = null)
+        public  String GetInvalidTypeMessage(String type, String? culture = null)
         {
             culture = culture ?? Culture;
             return culture switch
             {
-                "uk-UA" => $"obj{objNumber}: тип '{type}' не підтримується",
-                "en-US" => $"obj{objNumber}: type '{type}' unsupported",
+                "uk-UA" => $"Тип аргументу '{type}' не підтримується",
+                "en-US" => $"Argument type '{type}' unsupported",
                 _ => throw new Exception("Unupported culture")
             };
         }

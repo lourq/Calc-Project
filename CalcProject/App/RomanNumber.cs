@@ -45,20 +45,25 @@ namespace CalcProject.App
         
         public static RomanNumber Add(object obj1, object obj2)
         {
-            var rns = new RomanNumber[] { null!, null! };
-            var pars = new object[] { obj1, obj2 };
-
-            for (int i = 0; i < 2; i++)
-            {
-                if (pars[i] is null) throw new ArgumentException(Resources.GetInvalidTypeMessage(i+1,pars[i].GetType().Name));
-
-                if (pars[i] is int val) rns[i] = new RomanNumber(val);
-                else if (pars[i] is String str) rns[i] = new RomanNumber(Parse(str));
-                else if (pars[i] is RomanNumber rn) rns[i] = rn;
-                else throw new ArgumentException(Resources.GetInvalidTypeMessage(i+1,pars[i].GetType().Name));
-            }            
-
-            return rns[0].Add(rns[1]);
+            var rn1 = (obj1 is RomanNumber r1) ? r1 : new RomanNumber(obj1);
+            var rn2 = (obj2 is RomanNumber r2) ? r2 : new RomanNumber(obj2);
+            return rn1.Add(rn2);
+        }
+        
+        private RomanNumber(object obj)
+        {
+            if (obj == null) throw new ArgumentNullException(nameof(obj));
+            if (obj is int val) Value = val;
+            else if (obj is String str) Value = Parse(str);
+            else if (obj is RomanNumber rn) Value = rn.Value;
+            else throw new ArgumentException(
+                Resources.GetInvalidTypeMessage(obj.GetType().Name));
+        }
+        
+        public RomanNumber Sub(RomanNumber rn)
+        {
+            if(rn is null) throw new ArgumentNullException(nameof(rn));
+            return new(this.Value - rn.Value);  
         }
         
         public static RomanNumber Add(int num1, int num2)
