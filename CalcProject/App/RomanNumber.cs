@@ -25,6 +25,10 @@ namespace CalcProject.App
             {'M',1000}  
         };
         public int Value { get; set; }
+        
+        public static Resources Resources { get; set; } = null!;
+        
+        const string ZERO_DIGIT = "N";
 
         #endregion
 
@@ -46,12 +50,12 @@ namespace CalcProject.App
 
             for (int i = 0; i < 2; i++)
             {
-                if (pars[i] is null) throw new ArgumentNullException($"obj{i+1}");
+                if (pars[i] is null) throw new ArgumentException(Resources.GetInvalidTypeMessage(i+1,pars[i].GetType().Name));
 
                 if (pars[i] is int val) rns[i] = new RomanNumber(val);
                 else if (pars[i] is String str) rns[i] = new RomanNumber(Parse(str));
                 else if (pars[i] is RomanNumber rn) rns[i] = rn;
-                else throw new ArgumentException($"obj{i+1}: type unsupported");
+                else throw new ArgumentException(Resources.GetInvalidTypeMessage(i+1,pars[i].GetType().Name));
             }            
 
             return rns[0].Add(rns[1]);
@@ -65,7 +69,7 @@ namespace CalcProject.App
         public static RomanNumber Add(RomanNumber num1, int num2)
         {
             if (num1 is null)
-                throw new ArgumentException("Empty obj");
+                throw new ArgumentNullException();
             return new RomanNumber(num1.Value + num2);
         }
 
@@ -77,21 +81,21 @@ namespace CalcProject.App
         public static RomanNumber Add(RomanNumber num1, string num2)
         {
             if (num1 is null)
-                throw new ArgumentException("Empty obj");
+                throw new ArgumentNullException();
             return new RomanNumber(num1.Value + Parse(num2));
         }
 
         public static RomanNumber Add(string num1, RomanNumber num2)
         {
             if (num2 is null)
-                throw new ArgumentException("Empty obj");
+                throw new ArgumentNullException();
             return new RomanNumber(Parse(num1) + num2.Value);
         }
         public static RomanNumber Add(RomanNumber num1, RomanNumber num2)
         {
             if (num1  is null || num2 is null)
             {
-                throw new ArgumentException("Empty obj");
+                throw new ArgumentNullException();
             }
             return new RomanNumber(num1.Value + num2.Value);
         }
@@ -114,7 +118,7 @@ namespace CalcProject.App
         public RomanNumber Add(RomanNumber num)
         {
             if (num is null)
-                throw new ArgumentException("Empty obj");
+                throw new ArgumentNullException();
             
             return new(this.Value + num.Value);
         }
@@ -125,10 +129,9 @@ namespace CalcProject.App
 
         public override string ToString()
         {
-            if (Value == 0)
-            {
-                return "N";
-            }
+            if (Value == 0) 
+                return ZERO_DIGIT;
+
 
             int n = this.Value < 0 ? -this.Value : this.Value;
             String res = this.Value < 0 ? "-" : "";
@@ -162,14 +165,14 @@ namespace CalcProject.App
 
             #endregion
             
-            if (str == "N")
+            if (str == ZERO_DIGIT)
                 return 0;
             
             if (str == null)
                 throw new ArgumentNullException();
-        
+
             if (str == string.Empty)
-                throw new ArgumentException("Empty string not allowed");
+                throw new ArgumentException(Resources.GetEmptyStringMessage());
             
             if (str.StartsWith('-') && str.Length > 1)
             {
@@ -180,7 +183,7 @@ namespace CalcProject.App
             foreach (var inputSymbol in str)
             {
                 if (!Digits.ContainsKey(inputSymbol))
-                    throw new ArgumentException($"Invalid input data: {inputSymbol}");
+                    throw new ArgumentException(Resources.GetInvalidCharMessage(inputSymbol));
             }
             
             #region Parse to Int
