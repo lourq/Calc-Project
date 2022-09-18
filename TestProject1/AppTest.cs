@@ -151,8 +151,6 @@ namespace TestProject1
                 Assert.AreEqual("-V", rn_7.Add(rn2).ToString());
                 Assert.AreEqual("-XII", rn_7.Add(rn_5).ToString());
 
-                Assert.ThrowsException<ArgumentNullException>(() => rn2.Add((RomanNumber)null!));
-
             }
 
             [TestMethod]

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace CalcProject.App
 {
     // Class for working with R numbers
-    public class RomanNumber
+    public record class RomanNumber
     {
         #region Data
         
@@ -24,7 +24,6 @@ namespace CalcProject.App
             {'D',500},                                                                                                                         
             {'M',1000}  
         };
-
         public int Value { get; set; }
 
         #endregion
@@ -104,12 +103,12 @@ namespace CalcProject.App
         
         public RomanNumber Add(int num)
         {
-            return new RomanNumber(this.Value + num);
+            return this with { Value = this.Value + num };
         }
     
         public RomanNumber Add(String num)
         {
-            return new(this.Value + Parse(num));
+            return new(this.Value + RomanNumber.Parse(num));
         }
         
         public RomanNumber Add(RomanNumber num)
@@ -152,16 +151,19 @@ namespace CalcProject.App
         
         #endregion
 
-        #region Parse String to int method
+        #region Parse String to Int method
         public static int Parse(String str) 
         {
 
             #region var
 
-            var sum = 0;
+            int sum = 0;
             bool negNum = false;
 
             #endregion
+            
+            if (str == "N")
+                return 0;
             
             if (str == null)
                 throw new ArgumentNullException();
@@ -183,9 +185,9 @@ namespace CalcProject.App
             
             #region Parse to Int
 
-            if (str.Length <= 1)
+            if (str.Length == 1)
             {
-                return Digits[Char.Parse(str)];
+                return negNum ? -Digits[Char.Parse(str)] : Digits[Char.Parse(str)];
             }
             
 
